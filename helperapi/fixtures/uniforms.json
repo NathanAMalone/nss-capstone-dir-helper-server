@@ -1,0 +1,57 @@
+[
+    {
+        "model": "helperapi.uniform",
+        "pk": 1,
+        "fields": {
+            "uniform_number": 25,
+            "size": "large",
+            "assigned": false,
+            "out_for_cleaning": false,
+            "school_id": 1
+        }
+    },
+    {
+        "model": "helperapi.uniform",
+        "pk": 2,
+        "fields": {
+            "uniform_number": 37,
+            "size": "extra large",
+            "assigned": false,
+            "out_for_cleaning": false,
+            "school_id": 2
+        }
+    },
+    {
+        "model": "helperapi.uniform",
+        "pk": 3,
+        "fields": {
+            "uniform_number": 16,
+            "size": "small",
+            "assigned": false,
+            "out_for_cleaning": false,
+            "school_id": 2
+        }
+    },
+    {
+        "model": "helperapi.uniform",
+        "pk": 4,
+        "fields": {
+            "uniform_number": 123,
+            "size": "large",
+            "assigned": false,
+            "out_for_cleaning": false,
+            "school_id": 1
+        }
+    },
+    {
+        "model": "helperapi.uniform",
+        "pk": 5,
+        "fields": {
+            "uniform_number": 48,
+            "size": "medium",
+            "assigned": false,
+            "out_for_cleaning": false,
+            "school_id": 1
+        }
+    }
+]

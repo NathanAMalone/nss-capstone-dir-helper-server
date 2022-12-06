@@ -5,9 +5,9 @@ class Student(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     school = models.ForeignKey("School", on_delete=models.CASCADE)
-    prop = models.ForeignKey("Prop", on_delete=models.CASCADE)
-    uniform = models.ForeignKey("Uniform", on_delete=models.CASCADE)
-    instrument = models.ForeignKey("Instrument", on_delete=models.CASCADE)
+    prop = models.ForeignKey("Prop", on_delete=models.CASCADE, null=True)
+    uniform = models.ForeignKey("Uniform", on_delete=models.CASCADE, null=True)
+    instrument = models.ForeignKey("Instrument", on_delete=models.CASCADE, null=True)
     music_parts = models.ManyToManyField("Music", through="StudentMusic")
 
 

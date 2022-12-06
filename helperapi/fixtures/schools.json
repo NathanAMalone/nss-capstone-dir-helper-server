@@ -1,0 +1,17 @@
+[
+    {
+        "model": "helperapi.school",
+        "pk": 1,
+        "fields": {
+            "name": "NSS Band"
+            
+        }
+    },
+    {
+        "model": "helperapi.school",
+        "pk": 2,
+        "fields": {
+            "name": "Coding Commanders Band"
+        }
+    }
+]

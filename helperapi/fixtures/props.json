@@ -1,0 +1,20 @@
+[
+    {
+        "model": "helperapi.prop",
+        "pk": 1,
+        "fields": {
+            "name": "blue flag",
+            "assigned": false,
+            "school_id": 2
+        }
+    },
+    {
+        "model": "helperapi.prop",
+        "pk": 2,
+        "fields": {
+            "name": "tarp",
+            "assigned": false,
+            "school_id": 1
+        }
+    }
+]
