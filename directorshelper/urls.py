@@ -18,11 +18,14 @@ from django.conf.urls import include
 from django.urls import path
 from helperapi.views import register_user, login_user
 from rest_framework import routers
-from helperapi.views import InstrumentView, MusicView
+from helperapi.views import InstrumentView, MusicView, PropView, UniformView, StudentView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'instruments', InstrumentView, 'instrument')
 router.register(r'music', MusicView, 'music')
+router.register(r'props', PropView, 'prop')
+router.register(r'uniforms', UniformView, 'uniform')
+router.register(r'students', StudentView, 'student')
 
 urlpatterns = [
     path('register', register_user),
