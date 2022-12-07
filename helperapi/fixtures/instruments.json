@@ -1,0 +1,41 @@
+[
+    {
+        "model": "helperapi.instrument",
+        "pk": 1,
+        "fields": {
+            "name": "trumpet",
+            "type": "brass",
+            "serial_number": 4521357, 
+            "out_for_repair": false,
+            "school_owned": false,
+            "assigned": false,
+            "school_id": 1
+        }
+    },
+    {
+        "model": "helperapi.instrument",
+        "pk": 2,
+        "fields": {
+            "name": "trumpet",
+            "type": "brass",
+            "serial_number": 54231587,
+            "out_for_repair": false,
+            "school_owned": true,
+            "assigned": true,
+            "school_id": 2
+        }
+    },
+    {
+        "model": "helperapi.instrument",
+        "pk": 3,
+        "fields": {
+            "name": "flute",
+            "type": "woodwind",
+            "serial_number": 45627832,
+            "out_for_repair": false,
+            "school_owned": false,
+            "assigned": false,
+            "school_id": 1
+        }
+    }
+]

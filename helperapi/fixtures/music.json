@@ -1,0 +1,92 @@
+[
+    {
+        "model": "helperapi.music",
+        "pk": 1,
+        "fields": {
+            "name": "Rite of Spring",
+            "part": "Trumpet 1",
+            "assigned": true,
+            "school_id": 1
+        }
+    },
+    {
+        "model": "helperapi.music",
+        "pk": 2,
+        "fields": {
+            "name": "Rite of Spring",
+            "part": "Flute",
+            "assigned": true,
+            "school_id": 1
+        }
+    },
+    {
+        "model": "helperapi.music",
+        "pk": 3,
+        "fields": {
+            "name": "Rite of Spring",
+            "part": "Trumpet 2",
+            "assigned": false,
+            "school_id": 1
+        }
+    },
+    {
+        "model": "helperapi.music",
+        "pk": 4,
+        "fields": {
+            "name": "A Movement for Rosa",
+            "part": "Flute",
+            "assigned": false,
+            "school_id": 2
+        }
+    },
+    {
+        "model": "helperapi.music",
+        "pk": 5,
+        "fields": {
+            "name": "A Movement for Rosa",
+            "part": "Trumpet 2",
+            "assigned": false,
+            "school_id": 2
+        }
+    },
+    {
+        "model": "helperapi.music",
+        "pk": 6,
+        "fields": {
+            "name": "A Movement for Rosa",
+            "part": "Trumpet 1",
+            "assigned": true,
+            "school_id": 2
+        }
+    },
+    {
+        "model": "helperapi.music",
+        "pk": 7,
+        "fields": {
+            "name": "March Slave",
+            "part": "Trumpet 2",
+            "assigned": true,
+            "school_id": 1
+        }
+    },
+    {
+        "model": "helperapi.music",
+        "pk": 8,
+        "fields": {
+            "name": "March Slave",
+            "part": "Flute",
+            "assigned": true,
+            "school_id": 1
+        }
+    },
+    {
+        "model": "helperapi.music",
+        "pk": 9,
+        "fields": {
+            "name": "March Slave",
+            "part": "Trumpet 1",
+            "assigned": false,
+            "school_id": 1
+        }
+    }
+]

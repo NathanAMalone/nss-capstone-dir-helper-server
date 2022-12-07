@@ -1,0 +1,38 @@
+[
+    {
+        "model": "helperapi.student",
+        "pk": 1,
+        "fields": {
+            "school_id": 1,
+            "user_id": 4,
+            "prop_id": 2,
+            "uniform_id": 1,
+            "instrument_id": 1,
+            "music_parts": [1, 7]
+        }
+    },
+    {
+        "model": "helperapi.student",
+        "pk": 2,
+        "fields": {
+            "school_id": 1,
+            "user_id": 5,
+            "prop_id": 2,
+            "uniform_id": 5,
+            "instrument_id": 3,
+            "music_parts": [2, 8]
+        }
+    },
+    {
+        "model": "helperapi.student",
+        "pk": 3,
+        "fields": {
+            "school_id": 2,
+            "user_id": 6,
+            "prop_id": 1,
+            "uniform_id": 2,
+            "instrument_id": 2,
+            "music_parts": [6]
+        }
+    }
+]
