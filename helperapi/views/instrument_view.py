@@ -5,46 +5,62 @@ from rest_framework import serializers, status
 from helperapi.models import Instrument, School
 
 class InstrumentView(ViewSet):
-
+    
     def list(list,request):
-
-        instruments = Instrument.objects.all()
-        serialized = InstrumentSerializer(instruments, many=True)
-        return Response(serialized.data, status=status.HTTP_200_OK)
+        
+        if request.auth.user.is_staff == True:
+            instruments = Instrument.objects.all()
+            serialized = InstrumentSerializer(instruments, many=True)
+            return Response(serialized.data, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': 'You must be a director to view this data.'},status=status.HTTP_401_UNAUTHORIZED)
     
     def retrieve(self, request, pk=None):
 
-        instrument = Instrument.objects.get(pk=pk)
-        serialized = InstrumentSerializer(instrument, context={'request': request})
-        return Response(serialized.data, status=status.HTTP_200_OK)
+        if request.auth.user.is_staff == True:
+            instrument = Instrument.objects.get(pk=pk)
+            serialized = InstrumentSerializer(instrument, context={'request': request})
+            return Response(serialized.data, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': 'You must be a director to view this data.'},status=status.HTTP_401_UNAUTHORIZED)
     
     def create(self, request):
 
-        serializer = CreateInstrumentSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        if request.auth.user.is_staff == True:
+            serializer = CreateInstrumentSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'message': 'You must be a director to create this data.'},status=status.HTTP_401_UNAUTHORIZED)
     
     def update(self, request, pk):
 
-        instrument = Instrument.objects.get(pk=pk)
-        instrument.name = request.data["name"]
-        instrument.type = request.data["type"]
-        instrument.serial_number = request.data["serial_number"]
-        instrument.out_for_repair = request.data["out_for_repair"]
-        instrument.school_owned = request.data["school_owned"]
-        instrument.assigned = request.data["assigned"]
-        school = School.objects.get(pk=request.data["school"])
-        instrument.school = school
-        instrument.save()
+        if request.auth.user.is_staff == True:
+            instrument = Instrument.objects.get(pk=pk)
+            instrument.name = request.data["name"]
+            instrument.type = request.data["type"]
+            instrument.serial_number = request.data["serial_number"]
+            instrument.out_for_repair = request.data["out_for_repair"]
+            instrument.school_owned = request.data["school_owned"]
+            instrument.assigned = request.data["assigned"]
+            school = School.objects.get(pk=request.data["school"])
+            instrument.school = school
+            instrument.save()
 
-        return Response(None, status=status.HTTP_204_NO_CONTENT)
-    
+            return Response(None, status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response({'message': 'You must be a director to update this data.'},status=status.HTTP_401_UNAUTHORIZED)
+
     def destroy(self, request, pk):
 
-        instrument = Instrument.objects.get(pk=pk)
-        instrument.delete()
-        return Response(None, status=status.HTTP_204_NO_CONTENT)
+        if request.auth.user.is_staff == True:
+            instrument = Instrument.objects.get(pk=pk)
+            instrument.delete()
+            return Response(None, status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response({'message': 'You must be a director to delete this data.'},status=status.HTTP_401_UNAUTHORIZED)
+
 
 class SchoolSerializer(serializers.ModelSerializer):
 

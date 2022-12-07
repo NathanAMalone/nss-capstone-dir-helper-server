@@ -8,21 +8,32 @@ class StudentView(ViewSet):
 
     def list(list,request):
 
-        students = Student.objects.all()
-        serialized = StudentSerializer(students, many=True)
-        return Response(serialized.data, status=status.HTTP_200_OK)
+        if request.auth.user.is_staff == True:
+            students = Student.objects.all()
+            serialized = StudentSerializer(students, many=True)
+            return Response(serialized.data, status=status.HTTP_200_OK)
+        else:
+            student = Student.objects.get(user=request.auth.user)
+            serialized = StudentSerializer(student, context={'request': request})
+            return Response(serialized.data, status=status.HTTP_200_OK)
     
     def retrieve(self, request, pk=None):
 
-        student = Student.objects.get(pk=pk)
-        serialized = StudentSerializer(student, context={'request': request})
-        return Response(serialized.data, status=status.HTTP_200_OK)
+        if request.auth.user.is_staff == True:
+            student = Student.objects.get(pk=pk)
+            serialized = StudentSerializer(student, context={'request': request})
+            return Response(serialized.data, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': 'You must be a director to view this data.'},status=status.HTTP_401_UNAUTHORIZED)
     
     def destroy(self, request, pk):
 
-        student = Student.objects.get(pk=pk)
-        student.delete()
-        return Response(None, status=status.HTTP_204_NO_CONTENT)
+        if request.auth.user.is_staff == True:
+            student = Student.objects.get(pk=pk)
+            student.delete()
+            return Response(None, status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response({'message': 'You must be a director to delete this data.'},status=status.HTTP_401_UNAUTHORIZED)
 
 class MusicSerializer(serializers.ModelSerializer):
 
