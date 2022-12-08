@@ -2,58 +2,66 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from helperapi.models import Music, School
+from helperapi.models import Music, School, Director
 
 class MusicView(ViewSet):
 
     def list(list,request):
         if request.auth.user.is_staff == True:
-            musics = Music.objects.all()
+            director = Director.objects.get(user=request.auth.user)
+            musics = Music.objects.filter(school=director.school)
             serialized = MusicSerializer(musics, many=True)
             return Response(serialized.data, status=status.HTTP_200_OK)
         else:
             return Response({'message': 'You must be a director to view this data.'},status=status.HTTP_401_UNAUTHORIZED)
     
     def retrieve(self, request, pk=None):
-
         if request.auth.user.is_staff == True:
+            director = Director.objects.get(user=request.auth.user)
             music = Music.objects.get(pk=pk)
-            serialized = MusicSerializer(music, context={'request': request})
-            return Response(serialized.data, status=status.HTTP_200_OK)
+            if music.school == director.school:
+                serialized = MusicSerializer(music, context={'request': request})
+                return Response(serialized.data, status=status.HTTP_200_OK)
+            else:
+                return Response({'message': 'ERROR: This music is not from your school.'},status=status.HTTP_401_UNAUTHORIZED)
         else:
             return Response({'message': 'You must be a director to view this data.'},status=status.HTTP_401_UNAUTHORIZED)
     
     def create(self, request):
-
         if request.auth.user.is_staff == True:
+            director = Director.objects.get(user=request.auth.user)
+            school = director.school
             serializer = CreateMusicSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
-            serializer.save()
+            serializer.save(school=school)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response({'message': 'You must be a director to create this data.'},status=status.HTTP_401_UNAUTHORIZED)
     
     def update(self, request, pk):
-
         if request.auth.user.is_staff == True:
+            director = Director.objects.get(user=request.auth.user)
             music = Music.objects.get(pk=pk)
-            music.name = request.data["name"]
-            music.part = request.data["part"]
-            music.assigned = request.data["assigned"]
-            school = School.objects.get(pk=request.data["school"])
-            music.school = school
-            music.save()
-
-            return Response(None, status=status.HTTP_204_NO_CONTENT)
+            if music.school == director.school:
+                music.name = request.data["name"]
+                music.part = request.data["part"]
+                music.assigned = request.data["assigned"]
+                music.save()
+                return Response(None, status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response({'message': 'ERROR: This music is not from your school.'},status=status.HTTP_401_UNAUTHORIZED)
         else:
             return Response({'message': 'You must be a director to update this data.'},status=status.HTTP_401_UNAUTHORIZED)
     
     def destroy(self, request, pk):
-
         if request.auth.user.is_staff == True:
+            director = Director.objects.get(user=request.auth.user)
             music = Music.objects.get(pk=pk)
-            music.delete()
-            return Response(None, status=status.HTTP_204_NO_CONTENT)
+            if music.school == director.school:            
+                music.delete()
+                return Response(None, status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response({'message': 'ERROR: This music is not from your school.'},status=status.HTTP_401_UNAUTHORIZED)
         else:
             return Response({'message': 'You must be a director to delete this data.'},status=status.HTTP_401_UNAUTHORIZED)
 
@@ -67,7 +75,7 @@ class CreateMusicSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Music
-        fields = ['id', 'name', 'part', 'assigned', 'school', ]
+        fields = ['id', 'name', 'part', 'assigned', ]
 
 class MusicSerializer(serializers.ModelSerializer):
 
