@@ -2,14 +2,14 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from helperapi.models import School, Student, Prop, Uniform, Instrument, Music
+from helperapi.models import School, Student, Prop, Uniform, Instrument, Music, Director
 
 class StudentView(ViewSet):
 
     def list(list,request):
-
         if request.auth.user.is_staff == True:
-            students = Student.objects.all()
+            director = Director.objects.get(user=request.auth.user)
+            students = Student.objects.filter(school=director.school)
             serialized = StudentSerializer(students, many=True)
             return Response(serialized.data, status=status.HTTP_200_OK)
         else:
@@ -20,18 +20,25 @@ class StudentView(ViewSet):
     def retrieve(self, request, pk=None):
 
         if request.auth.user.is_staff == True:
+            director = Director.objects.get(user=request.auth.user)
             student = Student.objects.get(pk=pk)
-            serialized = StudentSerializer(student, context={'request': request})
-            return Response(serialized.data, status=status.HTTP_200_OK)
+            if student.school == director.school:
+                serialized = StudentSerializer(student, context={'request': request})
+                return Response(serialized.data, status=status.HTTP_200_OK)
+            else:
+                return Response({'message': 'ERROR: This student is not enrolled at your school.'},status=status.HTTP_401_UNAUTHORIZED)
         else:
             return Response({'message': 'You must be a director to view this data.'},status=status.HTTP_401_UNAUTHORIZED)
     
     def destroy(self, request, pk):
-
         if request.auth.user.is_staff == True:
+            director = Director.objects.get(user=request.auth.user)
             student = Student.objects.get(pk=pk)
-            student.delete()
-            return Response(None, status=status.HTTP_204_NO_CONTENT)
+            if student.school == director.school:
+                student.delete()
+                return Response(None, status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response({'message': 'ERROR: This student is not enrolled at your school.'},status=status.HTTP_401_UNAUTHORIZED)
         else:
             return Response({'message': 'You must be a director to delete this data.'},status=status.HTTP_401_UNAUTHORIZED)
 
