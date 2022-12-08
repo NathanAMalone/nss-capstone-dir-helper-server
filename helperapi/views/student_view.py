@@ -30,6 +30,22 @@ class StudentView(ViewSet):
         else:
             return Response({'message': 'You must be a director to view this data.'},status=status.HTTP_401_UNAUTHORIZED)
     
+    def update(self, request, pk):
+        if request.auth.user.is_staff == True:
+            director = Director.objects.get(user=request.auth.user)
+            student = Student.objects.get(pk=pk)
+            if student.school == director.school:
+                student.prop = Prop.objects.get(id=request.data["prop"])
+                student.uniform = Uniform.objects.get(id=request.data["uniform"])
+                student.instrument = Instrument.objects.get(id=request.data["instrument"])
+                student.music_parts.set(request.data["music_parts"])
+                student.save()
+                return Response(None, status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response({'message': 'ERROR: This instrument is not from your school.'},status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            return Response({'message': 'You must be a director to update this data.'},status=status.HTTP_401_UNAUTHORIZED)
+            
     def destroy(self, request, pk):
         if request.auth.user.is_staff == True:
             director = Director.objects.get(user=request.auth.user)
