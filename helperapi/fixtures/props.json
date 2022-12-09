@@ -13,7 +13,7 @@
         "pk": 2,
         "fields": {
             "name": "tarp",
-            "assigned": false,
+            "assigned": true,
             "school_id": 1
         }
     }

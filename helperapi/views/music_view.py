@@ -9,7 +9,7 @@ class MusicView(ViewSet):
     def list(list,request):
         if request.auth.user.is_staff == True:
             director = Director.objects.get(user=request.auth.user)
-            musics = Music.objects.filter(school=director.school)
+            musics = Music.objects.filter(school=director.school).order_by("name")
             serialized = MusicSerializer(musics, many=True)
             return Response(serialized.data, status=status.HTTP_200_OK)
         else:

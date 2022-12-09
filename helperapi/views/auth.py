@@ -17,7 +17,7 @@ def login_user(request):
     Method arguments:
       request -- The full HTTP request object
     '''
-    email = request.data['email']
+    email = request.data['username']
     password = request.data['password']
 
     # Use the built-in authenticate method to verify

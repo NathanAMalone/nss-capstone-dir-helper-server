@@ -62,7 +62,7 @@ class MusicSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Music
-        fields = ('name', 'part', )
+        fields = ('id', 'name', 'part', )
 
 class SchoolSerializer(serializers.ModelSerializer):
 
@@ -74,18 +74,18 @@ class PropSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Prop
-        fields = ('name', )
+        fields = ('id', 'name', )
 
 class UniformSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Uniform
-        fields = ('uniform_number', )
+        fields = ('id', 'uniform_number', )
 
 class InstrumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Instrument
-        fields = ('name', 'serial_number', )
+        fields = ('id', 'name', 'serial_number', )
 
 class StudentSerializer(serializers.ModelSerializer):
 
