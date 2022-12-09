@@ -5,7 +5,7 @@
         "fields": {
             "uniform_number": 25,
             "size": "large",
-            "assigned": false,
+            "assigned": true,
             "out_for_cleaning": false,
             "school_id": 1
         }
@@ -16,7 +16,7 @@
         "fields": {
             "uniform_number": 37,
             "size": "extra large",
-            "assigned": false,
+            "assigned": true,
             "out_for_cleaning": false,
             "school_id": 2
         }
@@ -49,7 +49,7 @@
         "fields": {
             "uniform_number": 48,
             "size": "medium",
-            "assigned": false,
+            "assigned": true,
             "out_for_cleaning": false,
             "school_id": 1
         }

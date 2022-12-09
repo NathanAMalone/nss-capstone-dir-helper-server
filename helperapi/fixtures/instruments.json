@@ -8,7 +8,7 @@
             "serial_number": 4521357, 
             "out_for_repair": false,
             "school_owned": false,
-            "assigned": false,
+            "assigned": true,
             "school_id": 1
         }
     },
@@ -34,6 +34,45 @@
             "serial_number": 45627832,
             "out_for_repair": false,
             "school_owned": false,
+            "assigned": true,
+            "school_id": 1
+        }
+    },
+    {
+        "model": "helperapi.instrument",
+        "pk": 4,
+        "fields": {
+            "name": "flute",
+            "type": "woodwind",
+            "serial_number": 5687952,
+            "out_for_repair": false,
+            "school_owned": false,
+            "assigned": false,
+            "school_id": 2
+        }
+    },
+    {
+        "model": "helperapi.instrument",
+        "pk": 5,
+        "fields": {
+            "name": "Alto Saxophone",
+            "type": "woodwind",
+            "serial_number": 785245,
+            "out_for_repair": false,
+            "school_owned": true,
+            "assigned": false,
+            "school_id": 1
+        }
+    },
+    {
+        "model": "helperapi.instrument",
+        "pk": 6,
+        "fields": {
+            "name": "Tuba",
+            "type": "Brass",
+            "serial_number": 3524687,
+            "out_for_repair": false,
+            "school_owned": true,
             "assigned": false,
             "school_id": 1
         }
