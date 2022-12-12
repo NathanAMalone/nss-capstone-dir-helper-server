@@ -44,7 +44,6 @@ class PropView(ViewSet):
             prop = Prop.objects.get(pk=pk)
             if prop.school == director.school:
                 prop.name = request.data["name"]
-                prop.assigned = request.data["assigned"]
                 prop.save()
                 return Response(None, status=status.HTTP_204_NO_CONTENT)
             else:

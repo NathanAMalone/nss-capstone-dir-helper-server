@@ -37,7 +37,10 @@ class StudentView(ViewSet):
             if student.school == director.school:
                 student.prop = Prop.objects.get(id=request.data["prop"])
                 student.uniform = Uniform.objects.get(id=request.data["uniform"])
-                student.instrument = Instrument.objects.get(id=request.data["instrument"])
+                if student.instrument == None:
+                    student.instrument = None
+                else:
+                    student.instrument = Instrument.objects.get(id=request.data["instrument"])
                 student.music_parts.set(request.data["music_parts"])
                 student.save()
                 return Response(None, status=status.HTTP_204_NO_CONTENT)

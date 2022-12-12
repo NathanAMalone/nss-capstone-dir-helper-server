@@ -48,7 +48,6 @@ class InstrumentView(ViewSet):
                 instrument.serial_number = request.data["serial_number"]
                 instrument.out_for_repair = request.data["out_for_repair"]
                 instrument.school_owned = request.data["school_owned"]
-                instrument.assigned = request.data["assigned"]
                 instrument.save()
                 return Response(None, status=status.HTTP_204_NO_CONTENT)
             else:

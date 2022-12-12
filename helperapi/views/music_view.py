@@ -45,7 +45,6 @@ class MusicView(ViewSet):
             if music.school == director.school:
                 music.name = request.data["name"]
                 music.part = request.data["part"]
-                music.assigned = request.data["assigned"]
                 music.save()
                 return Response(None, status=status.HTTP_204_NO_CONTENT)
             else:

@@ -46,7 +46,6 @@ class UniformView(ViewSet):
                 uniform.uniform_number = request.data["uniform_number"]
                 uniform.size = request.data["size"]
                 uniform.out_for_cleaning = request.data["out_for_cleaning"]
-                uniform.assigned = request.data["assigned"]
                 uniform.save()
                 return Response(None, status=status.HTTP_204_NO_CONTENT)
             else:
