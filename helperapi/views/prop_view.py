@@ -73,7 +73,7 @@ class CreatePropSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Prop
-        fields = ['id', 'name', 'assigned', 'school', ]
+        fields = ['id', 'name', 'assigned', ]
 
 class PropSerializer(serializers.ModelSerializer):
 
