@@ -94,6 +94,9 @@ def register_user(request):
         if account_type == 'student':
             account = Student.objects.create(
                 school=School.objects.get(pk=request.data['school']),
+                prop=None,
+                uniform=None,
+                instrument=None,
                 user=new_user
             )
         elif account_type == 'director':

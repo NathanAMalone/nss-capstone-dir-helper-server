@@ -27,7 +27,7 @@ router.register(r'music', MusicView, 'music')
 router.register(r'props', PropView, 'prop')
 router.register(r'uniforms', UniformView, 'uniform')
 router.register(r'students', StudentView, 'student')
-router.register(r'schools', SchoolView, 'student')
+router.register(r'schools', SchoolView, 'school')
 
 urlpatterns = [
     path('register', register_user),

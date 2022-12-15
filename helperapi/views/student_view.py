@@ -35,9 +35,15 @@ class StudentView(ViewSet):
             director = Director.objects.get(user=request.auth.user)
             student = Student.objects.get(pk=pk)
             if student.school == director.school:
-                student.prop = Prop.objects.get(id=request.data["prop"])
-                student.uniform = Uniform.objects.get(id=request.data["uniform"])
-                if student.instrument == None:
+                if request.data["prop"] == None:
+                    student.prop =None
+                else:
+                    student.prop = Prop.objects.get(id=request.data["prop"])
+                if request.data["uniform"] == None:
+                    student.uniform = None
+                else:
+                    student.uniform = Uniform.objects.get(id=request.data["uniform"])
+                if request.data["instrument"] == None:
                     student.instrument = None
                 else:
                     student.instrument = Instrument.objects.get(id=request.data["instrument"])

@@ -1,11 +1,13 @@
 from django.http import HttpResponseServerError
+from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from helperapi.models import School
 
 class SchoolView(ViewSet):
-
+    permission_classes = [AllowAny]
+    
     def list(list,request):
         schools = School.objects.all()
         serialized = SchoolSerializer(schools, many=True)
