@@ -16,17 +16,20 @@ class MusicView(ViewSet):
             return Response({'message': 'You must be a director to view this data.'},status=status.HTTP_401_UNAUTHORIZED)
     
     def retrieve(self, request, pk=None):
-        if request.auth.user.is_staff == True:
-            director = Director.objects.get(user=request.auth.user)
-            music = Music.objects.get(pk=pk)
-            if music.school == director.school:
-                serialized = MusicSerializer(music, context={'request': request})
-                return Response(serialized.data, status=status.HTTP_200_OK)
+        try:
+            if request.auth.user.is_staff == True:
+                director = Director.objects.get(user=request.auth.user)
+                music = Music.objects.get(pk=pk)
+                if music.school == director.school:
+                    serialized = MusicSerializer(music, context={'request': request})
+                    return Response(serialized.data, status=status.HTTP_200_OK)
+                else:
+                    return Response({'message': 'ERROR: This music is not from your school.'},status=status.HTTP_401_UNAUTHORIZED)
             else:
-                return Response({'message': 'ERROR: This music is not from your school.'},status=status.HTTP_401_UNAUTHORIZED)
-        else:
-            return Response({'message': 'You must be a director to view this data.'},status=status.HTTP_401_UNAUTHORIZED)
-    
+                return Response({'message': 'You must be a director to view this data.'},status=status.HTTP_401_UNAUTHORIZED)
+        except Music.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
     def create(self, request):
         if request.auth.user.is_staff == True:
             director = Director.objects.get(user=request.auth.user)
