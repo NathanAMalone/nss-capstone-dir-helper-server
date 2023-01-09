@@ -15,11 +15,28 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import include
-from django.urls import path
+from django.urls import path, re_path
 from helperapi.views import register_user, login_user
 from rest_framework import routers
 from helperapi.views import (InstrumentView, MusicView, PropView, UniformView, 
     StudentView, SchoolView)
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework import permissions
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="LevelUp API",
+        default_version='v1',
+        description="API for creating games and events",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@levelup.local"),
+        license=openapi.License(name="BSD License"),
+    ),
+
+    public=True,
+    permission_classes=[permissions.AllowAny],
+)
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'instruments', InstrumentView, 'instrument')
@@ -33,5 +50,7 @@ urlpatterns = [
     path('register', register_user),
     path('login', login_user),
     path('admin/', admin.site.urls),
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    re_path(r'^swagger/$', schema_view.with_ui('swagger',
+            cache_timeout=0), name='schema-swagger-ui'),
 ]
