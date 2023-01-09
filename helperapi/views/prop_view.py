@@ -16,16 +16,20 @@ class PropView(ViewSet):
             return Response({'message': 'You must be a director to view this data.'},status=status.HTTP_401_UNAUTHORIZED)
     
     def retrieve(self, request, pk=None):
-        if request.auth.user.is_staff == True:
-            director = Director.objects.get(user=request.auth.user)
-            prop = Prop.objects.get(pk=pk)
-            if prop.school == director.school:
-                serialized = PropSerializer(prop, context={'request': request})
-                return Response(serialized.data, status=status.HTTP_200_OK)
+        try:
+            if request.auth.user.is_staff == True:
+                director = Director.objects.get(user=request.auth.user)
+                prop = Prop.objects.get(pk=pk)
+                if prop.school == director.school:
+                    serialized = PropSerializer(prop, context={'request': request})
+                    return Response(serialized.data, status=status.HTTP_200_OK)
+                else:
+                    return Response({'message': 'ERROR: This prop is not from your school.'},status=status.HTTP_401_UNAUTHORIZED)
             else:
-                return Response({'message': 'ERROR: This prop is not from your school.'},status=status.HTTP_401_UNAUTHORIZED)
-        else:
-            return Response({'message': 'You must be a director to view this data.'},status=status.HTTP_401_UNAUTHORIZED)
+                return Response({'message': 'You must be a director to view this data.'},status=status.HTTP_401_UNAUTHORIZED)
+        except Prop.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
     
     def create(self, request):
         if request.auth.user.is_staff == True:
@@ -44,7 +48,6 @@ class PropView(ViewSet):
             prop = Prop.objects.get(pk=pk)
             if prop.school == director.school:
                 prop.name = request.data["name"]
-                prop.assigned = request.data["assigned"]
                 prop.save()
                 return Response(None, status=status.HTTP_204_NO_CONTENT)
             else:
@@ -74,7 +77,7 @@ class CreatePropSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Prop
-        fields = ['id', 'name', 'assigned', 'school', ]
+        fields = ['id', 'name', 'assigned', ]
 
 class PropSerializer(serializers.ModelSerializer):
 

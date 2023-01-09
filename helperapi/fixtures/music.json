@@ -63,7 +63,7 @@
         "model": "helperapi.music",
         "pk": 7,
         "fields": {
-            "name": "March Slave",
+            "name": "Marche Slave",
             "part": "Trumpet 2",
             "assigned": true,
             "school_id": 1
@@ -73,7 +73,7 @@
         "model": "helperapi.music",
         "pk": 8,
         "fields": {
-            "name": "March Slave",
+            "name": "Marche Slave",
             "part": "Flute",
             "assigned": true,
             "school_id": 1
@@ -83,7 +83,7 @@
         "model": "helperapi.music",
         "pk": 9,
         "fields": {
-            "name": "March Slave",
+            "name": "Marche Slave",
             "part": "Trumpet 1",
             "assigned": false,
             "school_id": 1

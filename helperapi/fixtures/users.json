@@ -35,7 +35,7 @@
             "user_permissions": []
         }
     },
-    {
+    {           
         "model": "auth.user",
         "pk": 3,
         "fields": {
